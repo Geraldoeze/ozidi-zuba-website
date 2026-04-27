@@ -1,7 +1,14 @@
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
-import { ArrowRight, Wrench, Package, Clock, Award } from 'lucide-react'
+import { ArrowRight, Wrench, Package, Clock, Award, Image as ImageIcon } from 'lucide-react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Ozidi Zuba in Kubwa | Motor Spare Parts & Car Maintenance - Abuja',
+  description: 'Authentic motor spare parts shopping center in Kubwa, Abuja. Quality car maintenance products and services for Nigerian vehicles. Trusted supplier of genuine auto parts.',
+  keywords: 'motor spare parts Abuja, car maintenance Kubwa, auto parts Nigeria, vehicle spare parts, car maintenance services',
+}
 
 export default function Home() {
   return (

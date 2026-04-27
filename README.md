@@ -11,7 +11,8 @@ This is a modern, responsive website built with Next.js 15, featuring:
 - **Mobile Responsive**: Fully responsive design optimized for all devices
 - **Performance Optimized**: Fast loading times with optimized images and code splitting
 - **Animations**: Smooth, engaging animations throughout the site
-- **Dark Mode Ready**: Beautiful dark theme optimized for the automotive industry
+- **Theme System**: Full light/dark mode support with system preference detection
+- **Gallery Page**: Showcase products with direct social media links to Instagram and Facebook posts
 
 ## Features
 
@@ -20,7 +21,8 @@ This is a modern, responsive website built with Next.js 15, featuring:
 1. **Home** - Hero section with features and CTA
 2. **About** - Company information, mission, vision, and services
 3. **Products** - Comprehensive product catalog organized by categories
-4. **Contact** - WhatsApp-based contact form and location information
+4. **Gallery** - Product showcase with direct social media links
+5. **Contact** - WhatsApp-based contact form and location information
 
 ### SEO Features
 
@@ -41,6 +43,30 @@ This is a modern, responsive website built with Next.js 15, featuring:
 - Shadcn/ui components
 - Lucide React icons
 - PWA manifest support
+
+## Quick Start - For Users
+
+### Switching Themes
+1. Look for the 🌙/☀️ icon in the top navigation bar
+2. Click to see theme options
+3. Choose: Light, Dark, or System
+4. Your preference is automatically saved!
+
+### Exploring Gallery
+1. Click "Gallery" in the navigation menu
+2. Browse beautiful product showcase
+3. Hover over images to see action buttons
+4. Click "View Post" to see full posts on Instagram/Facebook
+
+## Theme System
+
+The website features a dynamic theme system that:
+
+- **Respects system preferences** - Automatically adapts to user's OS dark/light mode setting
+- **Manual override** - Users can toggle between light, dark, or system mode via the theme switcher
+- **Persistent preference** - Theme choice is saved in localStorage
+- **Beautiful transitions** - Smooth color transitions when switching themes
+- **Complete Coverage** - All pages styled for both light and dark modes
 
 ## Setup Instructions
 

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import ThemeSwitcher from './ThemeSwitcher'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -11,6 +12,7 @@ export default function Navigation() {
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
     { href: '/products', label: 'Products' },
+    { href: '/gallery', label: 'Gallery' },
     { href: '/contact', label: 'Contact' },
   ]
 
@@ -47,8 +49,9 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* WhatsApp CTA */}
-          <div className="hidden md:flex">
+          {/* Theme Switcher & WhatsApp CTA */}
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeSwitcher />
             <a
               href="https://wa.me/234..."
               target="_blank"

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { ThemeProvider } from './providers'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -93,14 +94,48 @@ export default function RootLayout({
               'sameAs': [
                 'https://www.facebook.com/zubainkubwa/',
                 'https://www.instagram.com/zuba_in_kubwa/'
-              ]
+              ],
+              'hasMenu': {
+                '@type': 'WebSite',
+                'potentialAction': {
+                  '@type': 'SearchAction',
+                  'target': {
+                    '@type': 'EntryPoint',
+                    'urlTemplate': 'https://zubainkubwa.com/products?search={search_term_string}'
+                  }
+                }
+              }
             }),
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              'name': 'Ozidi Zuba in Kubwa',
+              'url': 'https://zubainkubwa.com',
+              'logo': 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-7r62LpUt5ENpfSYyQMsfHSJZE4kM6F.jpg',
+              'sameAs': [
+                'https://www.facebook.com/zubainkubwa/',
+                'https://www.instagram.com/zuba_in_kubwa/'
+              ],
+              'contactPoint': {
+                '@type': 'ContactPoint',
+                'telephone': '+234...',
+                'contactType': 'Customer Service'
+              }
+            }),
+          }}
+        />
+
       </head>
       <body className="font-sans antialiased bg-background text-foreground">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <ThemeProvider>
+          {children}
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </ThemeProvider>
       </body>
     </html>
   )
