@@ -51,7 +51,7 @@ export default function Navigation() {
 
           {/* Theme Switcher & WhatsApp CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <ThemeSwitcher />
+            {/* <ThemeSwitcher /> */}
             <a
               href="https://wa.me/234..."
               target="_blank"

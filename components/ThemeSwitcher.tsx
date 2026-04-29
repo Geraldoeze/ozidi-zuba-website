@@ -1,7 +1,8 @@
 'use client'
 
-import { useTheme } from '@/app/providers'
+
 import { Moon, Sun, Monitor } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import { useState } from 'react'
 
 export default function ThemeSwitcher() {
