@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import ThemeSwitcher from './ThemeSwitcher'
+// import ThemeSwitcher from './ThemeSwitcher' // TODO: Re-enable when theme system is fixed
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -49,7 +49,7 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Theme Switcher & WhatsApp CTA */}
+          {/* WhatsApp CTA */}
           <div className="hidden md:flex items-center gap-4">
             {/* <ThemeSwitcher /> */}
             <a

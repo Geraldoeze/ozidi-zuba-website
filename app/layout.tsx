@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
-import { ThemeProvider } from "@/app/providers";
-import "./globals.css";
-import Script from "next/script";
+import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+// import { ThemeProvider } from './providers' // TODO: Re-enable when theme system is fixed
+import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -165,10 +164,10 @@ export default function RootLayout({
         </Script> */}
       </head>
       <body className="font-sans antialiased bg-background text-foreground">
-        <ThemeProvider>
-          {children}
-          {process.env.NODE_ENV === "production" && <Analytics />}
-        </ThemeProvider>
+        {/* <ThemeProvider> */}
+        {children}
+        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );
