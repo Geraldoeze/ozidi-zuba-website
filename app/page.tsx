@@ -2,7 +2,7 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import HeroSection from '@/components/HeroSection'
 import Link from 'next/link'
-import { Wrench, Package, Clock, Award } from 'lucide-react'
+import { Wrench, Package, Clock, Award, ArrowRight } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
