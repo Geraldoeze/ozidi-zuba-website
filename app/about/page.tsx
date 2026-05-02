@@ -1,6 +1,7 @@
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import Breadcrumb from '@/components/Breadcrumb'
+import Image from 'next/image'
 import type { Metadata } from 'next'
 import { CheckCircle2, Users, Zap } from 'lucide-react'
 
@@ -37,11 +38,16 @@ export default function About() {
             <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
               {/* Image */}
               <div className="order-2 md:order-1 animate-fade-in">
-                <img
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-7r62LpUt5ENpfSYyQMsfHSJZE4kM6F.jpg"
-                  alt="Ozidi Zuba Store"
-                  className="w-full rounded-xl shadow-xl hover:shadow-2xl transition-shadow"
-                />
+                <div className="relative w-full h-96 md:h-[500px] rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow">
+                  <Image
+                    src="/images/about-storefront.jpg"
+                    alt="Ozidi Zuba in Kubwa Storefront - Motor Spare Parts Center"
+                    fill
+                    className="object-cover"
+                    quality={85}
+                    priority
+                  />
+                </div>
               </div>
 
               {/* Content */}

@@ -1,7 +1,8 @@
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+import HeroSection from '@/components/HeroSection'
 import Link from 'next/link'
-import { ArrowRight, Wrench, Package, Clock, Award, Image as ImageIcon } from 'lucide-react'
+import { Wrench, Package, Clock, Award } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -15,56 +16,8 @@ export default function Home() {
     <>
       <Navigation />
       <main className="min-h-screen">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden bg-background py-12 md:py-24">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full mix-blend-screen blur-3xl" />
-            <div className="absolute bottom-20 right-10 w-72 h-72 bg-primary rounded-full mix-blend-screen blur-3xl" />
-          </div>
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-              {/* Left Content */}
-              <div className="space-y-6 animate-slide-up">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-balance leading-tight">
-                  Quality <span className="text-primary">Motor Spare Parts</span> for Nigerian Roads
-                </h1>
-                <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-                  Your trusted authentic motor spare parts shopping center in Kubwa, Abuja. We satisfy the needs of all vehicle owners with genuine, quality car maintenance products.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Link
-                    href="/products"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-0.5 font-medium group"
-                  >
-                    Browse Products
-                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <a
-                    href="https://wa.me/234..."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-3 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-all font-medium"
-                  >
-                    Contact Us
-                  </a>
-                </div>
-              </div>
-
-              {/* Right - Logo Display */}
-              <div className="flex justify-center animate-scale-in">
-                <div className="relative w-full max-w-md h-96">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-3xl blur-2xl" />
-                  <img
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-7r62LpUt5ENpfSYyQMsfHSJZE4kM6F.jpg"
-                    alt="Ozidi Zuba in Kubwa Logo"
-                    className="relative w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Hero Section with Gradient Background */}
+        <HeroSection />
 
         {/* Features Section */}
         <section className="py-16 md:py-24 bg-card">
