@@ -1,6 +1,7 @@
-'use client'
+// TODO: Re-enable when theme system is fixed
+// 'use client'
 
-import { useTheme } from '@/app/providers'
+// import { useTheme } from '@/app/providers'
 import { Moon, Sun, Monitor } from 'lucide-react'
 import { useState } from 'react'
 

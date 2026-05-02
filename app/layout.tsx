@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { ThemeProvider } from './providers'
+// import { ThemeProvider } from './providers' // TODO: Re-enable when theme system is fixed
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -132,10 +132,10 @@ export default function RootLayout({
 
       </head>
       <body className="font-sans antialiased bg-background text-foreground">
-        <ThemeProvider>
-          {children}
-          {process.env.NODE_ENV === 'production' && <Analytics />}
-        </ThemeProvider>
+        {/* <ThemeProvider> */}
+        {children}
+        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {/* </ThemeProvider> */}
       </body>
     </html>
   )

@@ -1,6 +1,7 @@
-'use client'
+// TODO: Re-enable when theme system is fixed
+// 'use client'
 
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
+// import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
 
 type Theme = 'light' | 'dark' | 'system'
 
