@@ -21,6 +21,7 @@ export default async function v0NextConfig(phase, { defaultConfig }) {
   images: {
     ...userConfig.images,
     unoptimized: process.env.NODE_ENV === 'development',
+    qualities: [75, 85],
   },
   logging: {
     ...userConfig.logging,
