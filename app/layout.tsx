@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 // import { ThemeProvider } from './providers' // TODO: Re-enable when theme system is fixed
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -68,6 +69,7 @@ export default function RootLayout({
       lang="en"
       className="bg-background scroll-smooth"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
     >
       <head>
         <meta charSet="utf-8" />
@@ -147,8 +149,10 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-background text-foreground">
         {/* <ThemeProvider> */}
-        {children}
-        {process.env.NODE_ENV === "production" && <Analytics />}
+        <ClerkProvider>
+          {children}
+          {process.env.NODE_ENV === "production" && <Analytics />}
+        </ClerkProvider>
         {/* </ThemeProvider> */}
       </body>
     </html>
