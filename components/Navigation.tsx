@@ -29,8 +29,9 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="relative w-10 h-10 md:w-12 md:h-12">
-              <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-7r62LpUt5ENpfSYyQMsfHSJZE4kM6F.jpg"
+              
+               <img
+                src="/logo-bg.png" 
                 alt="Ozidi Zuba in Kubwa"
                 className="w-full h-full object-contain group-hover:scale-110 transition-transform"
               />

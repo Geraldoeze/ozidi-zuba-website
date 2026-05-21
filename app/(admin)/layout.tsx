@@ -148,6 +148,11 @@ export default async function AdminLayout({
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Left */}
           <div className="flex items-center gap-4">
+            <img
+              src="/logo-bg.png"
+              alt="Logo"
+              className="w-10 h-10 object-contain"
+            />
             <Link
               href="/admin"
               className="text-sm font-semibold tracking-tight text-foreground"
@@ -197,7 +202,6 @@ export default async function AdminLayout({
               <rect width="7" height="7" x="14" y="14" rx="1" />
               <rect width="7" height="7" x="3" y="14" rx="1" />
             </svg>
-
             Dashboard
           </Link>
 
@@ -219,7 +223,6 @@ export default async function AdminLayout({
               <circle cx="12" cy="12" r="10" />
               <path d="M12 8v8M8 12h8" />
             </svg>
-
             Add Photo
           </Link>
 
@@ -241,7 +244,6 @@ export default async function AdminLayout({
               <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
               <circle cx="12" cy="12" r="3" />
             </svg>
-
             View Site
           </Link>
         </div>
