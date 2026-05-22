@@ -111,7 +111,6 @@ export default function NewItemPage() {
                 <input
                   type="file"
                   accept="image/*,image/heic,image/heif"
-                  capture="environment"
                   onChange={handleFile}
                   className="sr-only"
                 />
