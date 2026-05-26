@@ -323,6 +323,7 @@ import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import { MessageCircle, MapPin, Phone, Clock } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -367,11 +368,35 @@ export default function Contact() {
       <Breadcrumb />
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="py-12 md:py-20 bg-card">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center space-y-4 animate-slide-up">
-              <h1 className="text-4xl md:text-5xl font-bold">Get In Touch</h1>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+        <section className="relative py-12 md:py-20 overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <Image
+              src="/images/hero-gradient.jpg"
+              alt="Ozidi Zuba in Kubwa storefront"
+              fill
+              className="object-cover object-top"
+              priority
+              quality={90}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center space-y-5 animate-slide-up">
+              <p className="inline-block text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-primary bg-primary/10 border border-primary/30 px-4 py-1.5 rounded-full">
+                Contact Us
+              </p>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight text-balance">
+                Get In <span className="text-primary">Touch</span>
+              </h1>
+              <div className="flex items-center justify-center gap-3">
+                <div className="h-px w-12 bg-primary/50 rounded-full" />
+                <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                <div className="h-px w-12 bg-primary/50 rounded-full" />
+              </div>
+              <p className="text-base sm:text-lg text-gray-200 max-w-2xl mx-auto leading-relaxed">
                 Have questions about our products? We&apos;re here to help.
                 Contact us via WhatsApp for instant response.
               </p>

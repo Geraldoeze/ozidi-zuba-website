@@ -3,8 +3,9 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Images } from "lucide-react";
+import { Images, Plus } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 type GalleryItem = {
   id: number;
@@ -35,9 +36,19 @@ export default function GalleryClient({ items }: { items: any[] }) {
               Our Latest Products
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl text-pretty animate-slide-up">
-              Browse our latest motor spare parts and automotive products.
-              Visit us in Kubwa for the best deals.
+              Browse our latest motor spare parts and automotive products. Visit
+              us in Kubwa for the best deals.
             </p>
+          </div>
+          <div>
+            {/* Floating upload button */}
+            <Link
+              href="/sign-in?redirect_url=/admin/new"
+              className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 rounded-full shadow-lg hover:bg-primary/90 transition-colors text-sm font-semibold"
+            >
+              <Plus size={18} />
+              Add Photo
+            </Link>
           </div>
         </section>
 
@@ -69,7 +80,9 @@ export default function GalleryClient({ items }: { items: any[] }) {
 
                     {/* Text overlay at bottom */}
                     <div className="p-4">
-                      <h3 className="font-semibold text-foreground">{item.title}</h3>
+                      <h3 className="font-semibold text-foreground">
+                        {item.title}
+                      </h3>
                       {item.caption && (
                         <p className="mt-1 text-sm text-muted-foreground">
                           {item.caption}
@@ -83,6 +96,7 @@ export default function GalleryClient({ items }: { items: any[] }) {
           </div>
         </section>
       </main>
+
       <Footer />
     </>
   );
