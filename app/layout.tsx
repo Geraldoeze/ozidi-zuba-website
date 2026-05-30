@@ -30,6 +30,7 @@ export const metadata: Metadata = {
         alt: "Ozidi Zuba in Kubwa Logo",
       },
     ],
+    
   },
   twitter: {
     card: "summary_large_image",
@@ -45,6 +46,23 @@ export const metadata: Metadata = {
     "max-image-preview": "large",
     "max-snippet": -1,
     "max-video-preview": -1,
+  },
+  icons: {
+    icon: [
+      {
+        url: "/android-chrome-192x192.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/android-chrome-512x512.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/favicon.ico",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: "/apple-touch-icon.png",
   },
 };
 
