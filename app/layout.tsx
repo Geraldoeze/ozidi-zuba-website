@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-// import { ThemeProvider } from './providers' // TODO: Re-enable when theme system is fixed
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
+
+const BASE_URL = "https://ozidizubainkubwa.com.ng";
 
 export const metadata: Metadata = {
   title: "Ozidi Zuba in Kubwa | Motor Spare Parts & Car Maintenance - Abuja",
@@ -21,7 +22,8 @@ export const metadata: Metadata = {
       "Premium motor spare parts and car maintenance products in Abuja. Your trusted source for quality auto parts.",
     type: "website",
     locale: "en_NG",
-    url: "https://zubainkubwa.com",
+    url: BASE_URL,                           // ✅ fixed
+    siteName: "Ozidi Zuba in Kubwa",
     images: [
       {
         url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-7r62LpUt5ENpfSYyQMsfHSJZE4kM6F.jpg",
@@ -30,7 +32,6 @@ export const metadata: Metadata = {
         alt: "Ozidi Zuba in Kubwa Logo",
       },
     ],
-    
   },
   twitter: {
     card: "summary_large_image",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     description: "Quality auto parts and car maintenance services in Abuja",
   },
   alternates: {
-    canonical: "https://zubainkubwa.com",
+    canonical: BASE_URL,                     // ✅ fixed
   },
   robots: {
     index: true,
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
       },
       {
         url: "/favicon.ico",
-        type: "image/svg+xml",
+        type: "image/x-icon",                // ✅ fixed — .ico is not svg
       },
     ],
     apple: "/apple-touch-icon.png",
@@ -87,24 +88,19 @@ export default function RootLayout({
       lang="en"
       className="bg-background scroll-smooth"
       suppressHydrationWarning
-      data-scroll-behavior="smooth"
     >
       <head>
         <meta charSet="utf-8" />
-        <meta property="og:site_name" content="Ozidi Zuba in Kubwa" />
-        <meta name="google-site-verification" content="" />
+        {/* ✅ moved og:site_name into metadata.openGraph.siteName above — no need to duplicate here */}
+        <meta name="google-site-verification" content="v5oZCuUCrLYOov8YWpWqx3r7HmoriwRvM9DD1sF9WWo" />
         <meta name="msvalidate.01" content="" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta
-          name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent"
-        />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Ozidi Zuba" />
-        <link
-          rel="apple-touch-icon"
-          href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-7r62LpUt5ENpfSYyQMsfHSJZE4kM6F.jpg"
-        />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />  {/* ✅ use local file */}
+
+        {/* LocalBusiness structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -112,13 +108,14 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               name: "Ozidi Zuba in Kubwa",
-              description: "Authentic motor spare parts shopping center",
-              url: "https://zubainkubwa.com",
-              telephone: "+234...", // Will be updated
+              description: "Authentic motor spare parts shopping center in Kubwa, Abuja",
+              url: BASE_URL,                 // ✅ fixed
+              telephone: "+234...",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Kubwa",
                 addressLocality: "Abuja",
+                addressRegion: "FCT",
                 postalCode: "",
                 addressCountry: "NG",
               },
@@ -129,20 +126,19 @@ export default function RootLayout({
                 "https://www.facebook.com/zubainkubwa/",
                 "https://www.instagram.com/zuba_in_kubwa/",
               ],
-              hasMenu: {
-                "@type": "WebSite",
-                potentialAction: {
-                  "@type": "SearchAction",
-                  target: {
-                    "@type": "EntryPoint",
-                    urlTemplate:
-                      "https://zubainkubwa.com/products?search={search_term_string}",
-                  },
+              potentialAction: {             // ✅ moved SearchAction here — hasMenu was wrong type
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: `${BASE_URL}/products?search={search_term_string}`,  // ✅ fixed
                 },
+                "query-input": "required name=search_term_string",
               },
             }),
           }}
         />
+
+        {/* Organization structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -150,7 +146,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Ozidi Zuba in Kubwa",
-              url: "https://zubainkubwa.com",
+              url: BASE_URL,                 // ✅ fixed
               logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-7r62LpUt5ENpfSYyQMsfHSJZE4kM6F.jpg",
               sameAs: [
                 "https://www.facebook.com/zubainkubwa/",
@@ -160,18 +156,18 @@ export default function RootLayout({
                 "@type": "ContactPoint",
                 telephone: "+234...",
                 contactType: "Customer Service",
+                areaServed: "NG",
+                availableLanguage: "English",
               },
             }),
           }}
         />
       </head>
       <body className="font-sans antialiased bg-background text-foreground">
-        {/* <ThemeProvider> */}
         <ClerkProvider>
           {children}
           {process.env.NODE_ENV === "production" && <Analytics />}
         </ClerkProvider>
-        {/* </ThemeProvider> */}
       </body>
     </html>
   );
