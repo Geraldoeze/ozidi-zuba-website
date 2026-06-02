@@ -4,7 +4,6 @@ import heic2any from "heic2any";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-
 export default function NewItemPage() {
   const router = useRouter();
   const [title, setTitle] = useState("");
@@ -97,12 +96,7 @@ export default function NewItemPage() {
             </div>
           ) : preview ? (
             <div className="relative aspect-square rounded-xl overflow-hidden bg-muted mb-2">
-              <Image
-                src={preview}
-                alt="Preview"
-                fill
-                className="object-cover"
-              />
+              <img src={preview} alt="Preview" className="object-cover" />
               {/* Tap image to change it */}
               <label className="absolute inset-0 flex items-end justify-center pb-4 cursor-pointer">
                 <span className="bg-black/60 text-white text-xs px-3 py-1.5 rounded-full">
@@ -142,8 +136,8 @@ export default function NewItemPage() {
               </span>
               <input
                 type="file"
-                accept="image/*"
-                capture="environment"
+                // accept="image/*"
+                accept="image/*,.heic,.heif"
                 onChange={handleFile}
                 className="sr-only"
               />

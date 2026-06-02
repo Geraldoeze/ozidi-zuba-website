@@ -2,15 +2,24 @@ import { sql } from "@vercel/postgres";
 import { notFound } from "next/navigation";
 import EditForm, { GalleryItem } from "./EditForm";
 
-
 async function getItem(id: string) {
-  const { rows } = await sql`SELECT * FROM gallery_items WHERE id=${id} LIMIT 1`;
+  const { rows } =
+    await sql`SELECT * FROM gallery_items WHERE id=${id} LIMIT 1`;
+
   return rows[0] ?? null;
 }
 
-export default async function EditPage({ params }: { params: { id: string } }) {
-  const item = await getItem(params.id);
+export default async function EditPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
+  const item = await getItem(id);
+
   if (!item) notFound();
+
   return (
     <div className="max-w-lg">
       <h1 className="text-2xl font-bold mb-6">Edit Item</h1>
