@@ -1,26 +1,26 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { useState } from 'react'
-import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
+import Link from "next/link";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 
 export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
-  const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
-    { href: '/products', label: 'Products' },
-    { href: '/gallery', label: 'Gallery' },
-    { href: '/contact', label: 'Contact' },
-  ]
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/products", label: "Products" },
+    { href: "/gallery", label: "Gallery" },
+    { href: "/contact", label: "Contact" },
+  ];
 
   const isActive = (href: string) => {
-    if (href === '/') return pathname === '/'
-    return pathname.startsWith(href)
-  }
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-background border-b border-border/40 backdrop-blur-sm">
@@ -29,9 +29,8 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="relative w-10 h-10 md:w-12 md:h-12">
-              
-               <img
-                src="/logo-bg.png" 
+              <img
+                src="/logo-bg.png"
                 alt="Ozidi Zuba in Kubwa"
                 className="w-full h-full object-contain group-hover:scale-110 transition-transform"
               />
@@ -50,7 +49,7 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-8">
             {navLinks.map((link) => {
-              const active = isActive(link.href)
+              const active = isActive(link.href);
 
               return (
                 <Link
@@ -58,19 +57,19 @@ export default function Navigation() {
                   href={link.href}
                   className={`text-sm font-medium transition-colors relative group ${
                     active
-                      ? 'text-primary'
-                      : 'text-foreground hover:text-primary'
+                      ? "text-primary"
+                      : "text-foreground hover:text-primary"
                   }`}
                 >
                   {link.label}
 
                   <span
                     className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all ${
-                      active ? 'w-full' : 'w-0 group-hover:w-full'
+                      active ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   />
                 </Link>
-              )
+              );
             })}
           </div>
 
@@ -98,39 +97,41 @@ export default function Navigation() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden animate-slide-down border-t border-border/40 py-4 space-y-2">
-            {navLinks.map((link) => {
-              const active = isActive(link.href)
+          <div>
+            <div className="md:hidden animate-slide-down border-t border-border/40 py-4 space-y-2">
+              {navLinks.map((link) => {
+                const active = isActive(link.href);
 
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`block px-4 py-2 rounded-lg transition-colors ${
-                    active
-                      ? 'bg-primary text-primary-foreground'
-                      : 'hover:bg-card text-foreground'
-                  }`}
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`block px-4 py-2 rounded-lg transition-colors ${
+                      active
+                        ? "bg-primary text-primary-foreground"
+                        : "hover:bg-card text-foreground"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+
+              <div className="px-4 pt-2">
+                <a
+                  href="https://wa.me/234..."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all text-center font-medium text-sm"
                 >
-                  {link.label}
-                </Link>
-              )
-            })}
-
-            <div className="px-4 pt-2">
-              <a
-                href="https://wa.me/234..."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all text-center font-medium text-sm"
-              >
-                Contact on WhatsApp
-              </a>
+                  Contact on WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         )}
       </div>
     </nav>
-  )
+  );
 }

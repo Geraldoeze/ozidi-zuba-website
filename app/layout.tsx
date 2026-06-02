@@ -91,16 +91,13 @@ export default function RootLayout({
     >
       <head>
         <meta charSet="utf-8" />
-        {/* ✅ moved og:site_name into metadata.openGraph.siteName above — no need to duplicate here */}
         <meta name="google-site-verification" content="v5oZCuUCrLYOov8YWpWqx3r7HmoriwRvM9DD1sF9WWo" />
         <meta name="msvalidate.01" content="" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Ozidi Zuba" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />  {/* ✅ use local file */}
-
-        {/* LocalBusiness structured data */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -136,9 +133,7 @@ export default function RootLayout({
               },
             }),
           }}
-        />
-
-        {/* Organization structured data */}
+        />        
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
