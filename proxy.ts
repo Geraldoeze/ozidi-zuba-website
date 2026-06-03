@@ -1,5 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
+// Keep this explicitly to catch unauthorized access to admin panels
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
@@ -10,7 +11,11 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)).*)",
+    // 1. Explicitly match the admin dashboard and all sub-routes
+    "/admin(.*)",
+    // 2. Explicitly match your API routes so you can check user headers there
     "/api/(.*)",
+    // 3. Always run for dynamic server actions and internal trpc endpoints if you use them
+    "/(api|trpc)(.*)"
   ],
 };
