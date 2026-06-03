@@ -1,25 +1,15 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
-
-const ALLOWED_EMAILS = ["ezenagugerald@gmail.com", "eoziddy8@gmail.com"];
+import { getSession, deleteSession } from "@/lib/auth";
+import UserMenu from "@/components/auth/User";
 
 export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { userId } = await auth();
-
-  if (!userId) redirect("/sign-in");
-
-  const user = await currentUser();
-  const email = user?.emailAddresses?.[0]?.emailAddress ?? "";
-
-  if (!ALLOWED_EMAILS.includes(email)) {
-    redirect("/unauthorized");
-  }
+  const session = await getSession();
+  if (!session) redirect("/sign-in");
 
   return (
     <div className="min-h-screen bg-[#fafafa] dark:bg-background">
@@ -39,13 +29,12 @@ export default async function AdminLayout({
             >
               Gallery CMS
             </Link>
-
             <span className="hidden text-sm text-muted-foreground lg:block">
               Zuba in Kubwa
             </span>
           </div>
 
-          {/* Right */}
+          {/* Right — sign out form */}
           <div className="flex items-center gap-4">
             <Link
               href="/admin/new"
@@ -54,7 +43,8 @@ export default async function AdminLayout({
               + Add Photo
             </Link>
 
-            <UserButton />
+            {/* ← replaces the old form/button */}
+            <UserMenu email={session.email} />
           </div>
         </div>
       </nav>
@@ -66,6 +56,7 @@ export default async function AdminLayout({
             href="/admin"
             className="flex flex-1 flex-col items-center gap-1 py-3 text-xs text-muted-foreground transition-colors hover:text-primary"
           >
+            {/* grid icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -89,6 +80,7 @@ export default async function AdminLayout({
             href="/admin/new"
             className="flex flex-1 flex-col items-center gap-1 py-3 text-xs text-muted-foreground transition-colors hover:text-primary"
           >
+            {/* plus icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -110,6 +102,7 @@ export default async function AdminLayout({
             href="/gallery"
             className="flex flex-1 flex-col items-center gap-1 py-3 text-xs text-muted-foreground transition-colors hover:text-primary"
           >
+            {/* eye icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -126,6 +119,31 @@ export default async function AdminLayout({
             </svg>
             View Site
           </Link>
+
+          {/* Sign out on mobile */}
+          <form action="/api/auth/logout" method="POST" className="flex flex-1">
+            <button
+              type="submit"
+              className="flex flex-1 flex-col items-center gap-1 py-3 text-xs text-muted-foreground transition-colors hover:text-destructive"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              Sign out
+            </button>
+          </form>
         </div>
       </div>
 

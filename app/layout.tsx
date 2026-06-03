@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
       "Premium motor spare parts and car maintenance products in Abuja. Your trusted source for quality auto parts.",
     type: "website",
     locale: "en_NG",
-    url: BASE_URL,                           // ✅ fixed
+    url: BASE_URL, // ✅ fixed
     siteName: "Ozidi Zuba in Kubwa",
     images: [
       {
@@ -39,7 +38,7 @@ export const metadata: Metadata = {
     description: "Quality auto parts and car maintenance services in Abuja",
   },
   alternates: {
-    canonical: BASE_URL,                     // ✅ fixed
+    canonical: BASE_URL, // ✅ fixed
   },
   robots: {
     index: true,
@@ -60,7 +59,7 @@ export const metadata: Metadata = {
       },
       {
         url: "/favicon.ico",
-        type: "image/x-icon",                // ✅ fixed — .ico is not svg
+        type: "image/x-icon", // ✅ fixed — .ico is not svg
       },
     ],
     apple: "/apple-touch-icon.png",
@@ -91,13 +90,19 @@ export default function RootLayout({
     >
       <head>
         <meta charSet="utf-8" />
-        <meta name="google-site-verification" content="v5oZCuUCrLYOov8YWpWqx3r7HmoriwRvM9DD1sF9WWo" />
+        <meta
+          name="google-site-verification"
+          content="v5oZCuUCrLYOov8YWpWqx3r7HmoriwRvM9DD1sF9WWo"
+        />
         <meta name="msvalidate.01" content="" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
         <meta name="apple-mobile-web-app-title" content="Ozidi Zuba" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> 
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -105,8 +110,9 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               name: "Ozidi Zuba in Kubwa",
-              description: "Authentic motor spare parts shopping center in Kubwa, Abuja",
-              url: BASE_URL,                 // ✅ fixed
+              description:
+                "Authentic motor spare parts shopping center in Kubwa, Abuja",
+              url: BASE_URL, // ✅ fixed
               telephone: "+234...",
               address: {
                 "@type": "PostalAddress",
@@ -123,17 +129,18 @@ export default function RootLayout({
                 "https://www.facebook.com/zubainkubwa/",
                 "https://www.instagram.com/zuba_in_kubwa/",
               ],
-              potentialAction: {             // ✅ moved SearchAction here — hasMenu was wrong type
+              potentialAction: {
+                // ✅ moved SearchAction here — hasMenu was wrong type
                 "@type": "SearchAction",
                 target: {
                   "@type": "EntryPoint",
-                  urlTemplate: `${BASE_URL}/products?search={search_term_string}`,  // ✅ fixed
+                  urlTemplate: `${BASE_URL}/products?search={search_term_string}`, // ✅ fixed
                 },
                 "query-input": "required name=search_term_string",
               },
             }),
           }}
-        />        
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -141,7 +148,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Ozidi Zuba in Kubwa",
-              url: BASE_URL,                 // ✅ fixed
+              url: BASE_URL, // ✅ fixed
               logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-7r62LpUt5ENpfSYyQMsfHSJZE4kM6F.jpg",
               sameAs: [
                 "https://www.facebook.com/zubainkubwa/",
@@ -159,10 +166,8 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased bg-background text-foreground">
-        <ClerkProvider>
-          {children}
-          {process.env.NODE_ENV === "production" && <Analytics />}
-        </ClerkProvider>
+        {children}
+        {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>
   );
