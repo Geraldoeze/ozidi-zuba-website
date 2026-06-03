@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
-import heic2any from "heic2any";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 export default function NewItemPage() {
   const router = useRouter();
@@ -11,6 +9,49 @@ export default function NewItemPage() {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const f = e.target.files?.[0];
+  //   if (!f) return;
+
+  //   const isHeic =
+  //     f.type === "image/heic" ||
+  //     f.type === "image/heif" ||
+  //     f.name.toLowerCase().endsWith(".heic") ||
+  //     f.name.toLowerCase().endsWith(".heif");
+
+  //   if (isHeic) {
+  //     setPreview("loading");
+  //     try {
+  //       // Convert HEIC → JPEG blob in the browser before upload
+  //       const converted = await heic2any({
+  //         blob: f,
+  //         toType: "image/jpeg",
+  //         quality: 0.9,
+  //       });
+  //       const jpegBlob = Array.isArray(converted) ? converted[0] : converted;
+  //       const jpegFile = new File(
+  //         [jpegBlob],
+  //         f.name.replace(/\.heic$/i, ".jpg"),
+  //         {
+  //           type: "image/jpeg",
+  //         }
+  //       );
+  //       setFile(jpegFile); // upload the JPEG, not the HEIC
+  //       const reader = new FileReader();
+  //       reader.onload = (ev) => setPreview(ev.target?.result as string);
+  //       reader.readAsDataURL(jpegFile);
+  //     } catch (err) {
+  //       console.error("HEIC conversion failed", err);
+  //       setPreview(null);
+  //     }
+  //   } else {
+  //     setFile(f);
+  //     const reader = new FileReader();
+  //     reader.onload = (ev) => setPreview(ev.target?.result as string);
+  //     reader.readAsDataURL(f);
+  //   }
+  // };
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -24,35 +65,45 @@ export default function NewItemPage() {
 
     if (isHeic) {
       setPreview("loading");
+
       try {
-        // Convert HEIC → JPEG blob in the browser before upload
+        const { default: heic2any } = await import("heic2any");
+
         const converted = await heic2any({
           blob: f,
           toType: "image/jpeg",
           quality: 0.9,
         });
+
         const jpegBlob = Array.isArray(converted) ? converted[0] : converted;
+
         const jpegFile = new File(
           [jpegBlob],
-          f.name.replace(/\.heic$/i, ".jpg"),
+          f.name.replace(/\.(heic|heif)$/i, ".jpg"),
           {
             type: "image/jpeg",
           }
         );
-        setFile(jpegFile); // upload the JPEG, not the HEIC
+
+        setFile(jpegFile);
+
         const reader = new FileReader();
         reader.onload = (ev) => setPreview(ev.target?.result as string);
+
         reader.readAsDataURL(jpegFile);
       } catch (err) {
         console.error("HEIC conversion failed", err);
         setPreview(null);
       }
-    } else {
-      setFile(f);
-      const reader = new FileReader();
-      reader.onload = (ev) => setPreview(ev.target?.result as string);
-      reader.readAsDataURL(f);
+
+      return;
     }
+
+    setFile(f);
+
+    const reader = new FileReader();
+    reader.onload = (ev) => setPreview(ev.target?.result as string);
+    reader.readAsDataURL(f);
   };
 
   const handleSubmit = async () => {
@@ -111,37 +162,69 @@ export default function NewItemPage() {
               </label>
             </div>
           ) : (
-            // Big tap target for camera/gallery on mobile
-            <label className="flex flex-col items-center justify-center w-full aspect-square border-2 border-dashed rounded-xl cursor-pointer hover:bg-muted/50 transition-colors">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-muted-foreground mb-3"
-              >
-                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-                <circle cx="12" cy="13" r="3" />
-              </svg>
-              <span className="text-sm font-medium text-muted-foreground">
-                Take or choose a photo
-              </span>
-              <span className="text-xs text-muted-foreground mt-1">
-                Opens camera or gallery
-              </span>
-              <input
-                type="file"
-                // accept="image/*"
-                accept="image/*,.heic,.heif"
-                onChange={handleFile}
-                className="sr-only"
-              />
-            </label>
+            // Two explicit buttons — reliable on Samsung/Android + iOS
+            <div className="flex gap-3 w-full">
+              {/* Camera */}
+              <label className="flex-1 flex flex-col items-center justify-center aspect-square border-2 border-dashed rounded-xl cursor-pointer hover:bg-muted/50 transition-colors">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-muted-foreground mb-2"
+                >
+                  <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                  <circle cx="12" cy="13" r="3" />
+                </svg>
+                <span className="text-sm font-medium text-muted-foreground">
+                  Take photo
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  onChange={handleFile}
+                  className="sr-only"
+                />
+              </label>
+
+              {/* Gallery / Files */}
+              <label className="flex-1 flex flex-col items-center justify-center aspect-square border-2 border-dashed rounded-xl cursor-pointer hover:bg-muted/50 transition-colors">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-muted-foreground mb-2"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+                <span className="text-sm font-medium text-muted-foreground">
+                  Choose photo
+                </span>
+                <span className="text-xs text-muted-foreground mt-1">
+                  Gallery or files
+                </span>
+                <input
+                  type="file"
+                  accept="image/*,.heic,.heif"
+                  onChange={handleFile}
+                  className="sr-only"
+                />
+              </label>
+            </div>
           )}
         </div>
 
