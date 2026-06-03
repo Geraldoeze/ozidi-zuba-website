@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getGalleryItems } from "@/lib/db";
+import { getGalleryItemsPaginated, getGalleryItemsCount } from "@/lib/db";
 import GalleryClient from "./client-data";
 
 
@@ -15,6 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default async function GalleryPage() {
-  const items = await getGalleryItems();
-  return <GalleryClient items={items} />;
+  const [items, total] = await Promise.all([
+    getGalleryItemsPaginated(20, 0),
+    getGalleryItemsCount(),
+  ]);
+  return <GalleryClient initialItems={items} total={total} />;
 }

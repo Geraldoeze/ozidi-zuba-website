@@ -1,11 +1,12 @@
 import { put } from "@vercel/blob";
 import sharp from "sharp";
-import { auth } from "@clerk/nextjs/server";
+import { getSession } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const session = await getSession();
+  if (!session)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const formData = await req.formData();
   const file = formData.get("file") as File;
@@ -14,15 +15,18 @@ export async function POST(req: NextRequest) {
   const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
 
   if (!allowedTypes.includes(file.type)) {
-    return NextResponse.json({ error: "Unsupported image format" }, { status: 415 });
+    return NextResponse.json(
+      { error: "Unsupported image format" },
+      { status: 415 }
+    );
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
 
   const optimized = await sharp(buffer, {
-    failOn: "none",       // tolerate minor HEIC encoding quirks
+    failOn: "none", // tolerate minor HEIC encoding quirks
   })
-    .rotate()             // honour EXIF orientation (critical for phone photos)
+    .rotate() // honour EXIF orientation (critical for phone photos)
     .resize(1200, 1200, { fit: "inside", withoutEnlargement: true })
     .webp({ quality: 82 })
     .toBuffer();
