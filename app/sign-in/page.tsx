@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import { Eye, EyeOff } from "lucide-react";
 
 export default function SignInPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +43,6 @@ export default function SignInPage() {
           <p className="text-sm text-muted-foreground">Sign in to continue</p>
         </div>
 
-        {/* Form — no <form> tag, we use onSubmit on a div with a button */}
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
@@ -58,15 +58,25 @@ export default function SignInPage() {
 
           <div>
             <label className="block text-sm font-medium mb-1">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border rounded-xl px-3 py-3 bg-background text-sm outline-none focus:ring-2 focus:ring-primary"
-              placeholder="••••••••"
-              autoComplete="current-password"
-              onKeyDown={(e) => e.key === "Enter" && handleSubmit(e as any)}
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full border rounded-xl px-3 py-3 pr-11 bg-background text-sm outline-none focus:ring-2 focus:ring-primary"
+                placeholder="••••••••"
+                autoComplete="current-password"
+                onKeyDown={(e) => e.key === "Enter" && handleSubmit(e as any)}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+              </button>
+            </div>
           </div>
 
           {error && (
