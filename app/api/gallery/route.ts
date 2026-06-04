@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  getGalleryItems,
-  createGalleryItem,
-  getGalleryItemsPaginated,
-  getGalleryItemsCount,
-} from "@/lib/db";
+import { getGalleryItemsPaginated, getGalleryItemsCount, createGalleryItem } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
+
+export const dynamic = "force-dynamic"; // ← no caching on the API route either
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -24,7 +22,11 @@ export async function POST(req: NextRequest) {
   const session = await getSession();
   if (!session)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { title, caption, imageUrl } = await req.json();
   const item = await createGalleryItem(title, caption, imageUrl);
+
+  revalidatePath("/gallery"); // ← bust the gallery page cache after every upload
+
   return NextResponse.json(item);
 }

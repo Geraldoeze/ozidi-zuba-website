@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getGalleryItemsPaginated, getGalleryItemsCount } from "@/lib/db";
 import GalleryClient from "./client-data";
 
+export const dynamic = "force-dynamic"; // ← always fetch fresh data, never cache
 
 export const metadata: Metadata = {
   title: "Gallery - Ozidi Zuba in Kubwa | Motor Spare Parts Gallery",
